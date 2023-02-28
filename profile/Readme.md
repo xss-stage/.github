@@ -51,7 +51,7 @@ dependencies {
 }
 ```
 
-## Useage
+## Usage
 
 ``` Java
 
@@ -62,7 +62,9 @@ public class Example{
     @GetMapping("/example")
     public Object helloworld(@Xss String param1, @Xss("json") SomeObject param2, @Xss("string") String param3, String param4){
         // @XssFiltering 어노테이션이 마킹된 메소드의 파라미터에 @Xss 어노테이션을 마킹함으로써 Xss safe한 객체를 얻을 수 있습니다.
-        // 
+        // @Xss의 value()에 어떠한 값도 들어가지 않는다면, 마킹된 파라미터의 클래스 이름을 모두 소문자로 변경한 값이 됩니다.
+        // @Xss의 value()에 값을 넣음으로써, 이 파라미터를 필터링 하는데 사용할 XssFilter 구현체를 선택할 수 있습니다.
+        // @Xss에 들어갈 수 있는 값은 xss-extension 레포지토리를 참고하세요.
         ...
     }
   
