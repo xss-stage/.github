@@ -11,6 +11,37 @@ core : [xss-core-1.1](https://github.com/xss-stage/xss-core)
 string-extension : [xss-extension-string-1.1](https://github.com/xss-stage/xss-extension-string)   
 json-extension : [xss-extension-json-1.1](https://github.com/xss-stage/xss-extension-json)
 
+## Usage
+xss-stage에서 사용할 수 있는 인터페이스와 확장법은 모두 xss-core 라이브러리에 작성되어 있습니다.   
+Custom Xss Filter가 필요한 상황이 필요한 상황이 아니라면, 다음 인터페이스로 Xss-filtering을 진행할 수 있습니다.   
+만약 Custom Xss Filter가 필요하다면, [xss-core](https://github.com/xss-stage/xss-core)를 참조하세요.
+   
+> `@XssFiltering` : 메소드에 마킹가능하며, 마킹된 메소드는 XssFiltering의 대상이 됩니다.   
+> `@Xss` : `@XssFiltering`이 마킹된 메소드의 파라미터에 마킹가능하며, 마킹된 파라미터를 대상으로 Xss filtering이 진행됩니다. 
+> `@Xss`는 String filterName() 메소드를 갖고있으며, 이 메소드에 값을 설정하는것으로 파라미터를 필터링할때 사용할 XssFilter를 결정할 수 있습니다.
+> filterName()은 value()와 동일하며, 이 둘 모두 생략된다면, 파라미터의 클래스명을 모두 소문자로 변경한 값으로 XssFilter를 결정합니다.
+   
+다음은 실제 사용예시 입니다.
+
+``` Java
+
+@RestController
+public class Example{
+  
+    @XssFiltering // 이 어노테이션이 마킹된 메소드는 XssFiltering의 대상이 됩니다.
+    @GetMapping("/example")
+    public Object helloworld(@Xss String param1, @Xss("json") SomeObject param2, @Xss("string") String param3, String param4){
+        // @XssFiltering 어노테이션이 마킹된 메소드의 파라미터에 @Xss 어노테이션을 마킹함으로써 Xss safe한 객체를 얻을 수 있습니다.
+        // @Xss의 value()에 어떠한 값도 들어가지 않는다면, 마킹된 파라미터의 클래스 이름을 모두 소문자로 변경한 값이 됩니다.
+        // @Xss의 value()에 값을 넣음으로써, 이 파라미터를 필터링 하는데 사용할 XssFilter 구현체를 선택할 수 있습니다.
+        // @Xss에 들어갈 수 있는 값은 xss-extension 레포지토리를 참고하세요.
+        ...
+    }
+  
+}
+
+```
+
 ## Download
 #### xss-stage는 jitpack을 이용해 배포되고 있으며, Spring에 종속적인 라이브러리로 관련 의존성을 필요로 합니다.
 ``` gradle
@@ -73,35 +104,4 @@ dependencies {
    implementation 'org.springframework.boot:spring-boot-starter'
    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
-```
-
-## Usage
-xss-stage에서 사용할 수 있는 인터페이스와 확장법은 모두 xss-core 라이브러리에 작성되어 있습니다.   
-Custom Xss Filter가 필요한 상황이 필요한 상황이 아니라면, 다음 인터페이스로 Xss-filtering을 진행할 수 있습니다.   
-만약 Custom Xss Filter가 필요하다면, [xss-core](https://github.com/xss-stage/xss-core)를 참조하세요.
-   
-> `@XssFiltering` : 메소드에 마킹가능하며, 마킹된 메소드는 XssFiltering의 대상이 됩니다.   
-> `@Xss` : `@XssFiltering`이 마킹된 메소드의 파라미터에 마킹가능하며, 마킹된 파라미터를 대상으로 Xss filtering이 진행됩니다. 
-> `@Xss`는 String filterName() 메소드를 갖고있으며, 이 메소드에 값을 설정하는것으로 파라미터를 필터링할때 사용할 XssFilter를 결정할 수 있습니다.
-> filterName()은 value()와 동일하며, 이 둘 모두 생략된다면, 파라미터의 클래스명을 모두 소문자로 변경한 값으로 XssFilter를 결정합니다.
-   
-다음은 실제 사용예시 입니다.
-
-``` Java
-
-@RestController
-public class Example{
-  
-    @XssFiltering // 이 어노테이션이 마킹된 메소드는 XssFiltering의 대상이 됩니다.
-    @GetMapping("/example")
-    public Object helloworld(@Xss String param1, @Xss("json") SomeObject param2, @Xss("string") String param3, String param4){
-        // @XssFiltering 어노테이션이 마킹된 메소드의 파라미터에 @Xss 어노테이션을 마킹함으로써 Xss safe한 객체를 얻을 수 있습니다.
-        // @Xss의 value()에 어떠한 값도 들어가지 않는다면, 마킹된 파라미터의 클래스 이름을 모두 소문자로 변경한 값이 됩니다.
-        // @Xss의 value()에 값을 넣음으로써, 이 파라미터를 필터링 하는데 사용할 XssFilter 구현체를 선택할 수 있습니다.
-        // @Xss에 들어갈 수 있는 값은 xss-extension 레포지토리를 참고하세요.
-        ...
-    }
-  
-}
-
 ```
