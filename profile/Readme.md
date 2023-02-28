@@ -3,6 +3,7 @@ xss-stage는 다양한 xss 라이브러리를 통합하고 쉽게 적용하기 �
 xss-core는 자유롭게 XssFilter를 등록하고 확장하여 사용할 수 있으며, 요청단에서 xss 필터링을 진행하기 때문에, 응답과정에서 필터링을 진행하는 방식보다 특정 상황(응답이 요청보다 많은 상황)에서 더 효율적일 수 있습니다.   
    
 [![made with love](https://camo.githubusercontent.com/c6c5b56fc051557203c6dffa4242b41b09ff22f6303da15e47162a5c1691e8a5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d616465253230776974682d4c6f76652d2d2545322539442541342d726564)](https://camo.githubusercontent.com/c6c5b56fc051557203c6dffa4242b41b09ff22f6303da15e47162a5c1691e8a5/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d616465253230776974682d4c6f76652d2d2545322539442541342d726564)  
+![needed jdk version](https://img.shields.io/badge/JDK-8-blue)   
 ![api-version](https://img.shields.io/badge/xss--core-1.1-3F9DE5)  ![api-version](https://img.shields.io/badge/xss--extension--string-1.1-92CE64)  ![api-version](https://img.shields.io/badge/xss--extension--json-1.1-F29494)
 
 ## Extensions
@@ -37,23 +38,47 @@ dependencies {
 }
 ```
 
-- String 형태의 파라미터를 필터링 하기 위해, xss-extension-string 라이브러리를 다운로드 합니다.
+- String 형태의 파라미터를 필터링할 필요가 있다면, xss-extension-string 라이브러리를 다운로드 합니다.
 ``` gradle
 dependnecies {
     implementation 'com.github.xss-stage:xss-extension-string:1.1'
 }
 ```
 
-- Json 형태의 파라미터를 필터링 하기 위해, xss-extension-json 라이브러리를 다운로드 합니다.
+- Json 형태의 파라미터(Json -> 객체)를 필터링할 필요가 있다면, xss-extension-json 라이브러리를 다운로드 합니다.
 ``` gradle
 dependencies {
     implementation 'com.github.xss-stage:xss-extension-json:1.1'
 }
 ```
 
+- 모든 의존성을 다운로드 받는다면 gradle파일은 다음과 같이 됩니다.
+``` gradle
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven {url 'https://jitpack.io'}
+}
+
+dependencies {
+   implementation 'com.github.xss-stage:xss-core:1.1'
+   implementation 'com.github.xss-stage:xss-extension-string:1.1'
+   implementation 'com.github.xss-stage:xss-extension-json:1.1'
+   
+   implementation 'org.springframework.boot:spring-boot-starter'
+   implementation 'org.springframework.boot:spring-boot-starter-aop'
+}
+```
+
 ## Usage
 xss-stage에서 사용할 수 있는 인터페이스와 확장법은 모두 xss-core 라이브러리에 작성되어 있습니다.   
-추가적인 확장이 필요한 상황이 필요한 상황이 아니라면, 다음 인터페이스로 Xss-filtering을 진행할 수 있습니다.
+Custom Xss Filter가 필요한 상황이 필요한 상황이 아니라면, 다음 인터페이스로 Xss-filtering을 진행할 수 있습니다.   
+만약 Custom Xss Filter가 필요하다면, [xss-core](https://github.com/xss-stage/xss-core)를 참조하세요.
    
 > `@XssFiltering` : 메소드에 마킹가능하며, 마킹된 메소드는 XssFiltering의 대상이 됩니다.   
 > `@Xss` : `@XssFiltering`이 마킹된 메소드의 파라미터에 마킹가능하며, 마킹된 파라미터를 대상으로 Xss filtering이 진행됩니다. 
