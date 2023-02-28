@@ -52,6 +52,15 @@ dependencies {
 ```
 
 ## Usage
+xss-stage에서 사용할 수 있는 인터페이스와 확장법은 모두 xss-core 라이브러리에 작성되어 있습니다.   
+추가적인 확장이 필요한 상황이 필요한 상황이 아니라면, 다음 인터페이스로 Xss-filtering을 진행할 수 있습니다.
+   
+> `@XssFiltering` : 메소드에 마킹가능하며, 마킹된 메소드는 XssFiltering의 대상이 됩니다.   
+> `@Xss` : `@XssFiltering`이 마킹된 메소드의 파라미터에 마킹가능하며, 마킹된 파라미터를 대상으로 Xss filtering이 진행됩니다. 
+> `@Xss`는 String filterName() 메소드를 갖고있으며, 이 메소드에 값을 설정하는것으로 파라미터를 필터링할때 사용할 XssFilter를 결정할 수 있습니다.
+> filterName()은 value()와 동일하며, 이 둘 모두 생략된다면, 파라미터의 클래스명을 모두 소문자로 변경한 값으로 XssFilter를 결정합니다.
+   
+다음은 실제 사용예시 입니다.
 
 ``` Java
 
