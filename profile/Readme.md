@@ -65,7 +65,7 @@ dependencies {
 }
 ```
 
-- xss-stage 라이브러리를 사용하기 위해 xss-core 라이브러리를 다운로드 합니다. xss-core는 xss-extension들을 통합하고 요청 파라미터에 적용하는 역할을 합니다.
+- xss-stage 라이브러리를 사용하기 위해 xss-core 라이브러리를 다운로드 합니다. xss-core는 xss-extension들을 통합하고 XssFilter구현체들을 요청 파라미터에 적용하는 역할을 합니다.
 ``` gradle
 dependencies {
     implementation 'com.github.xss-stage:xss-core:1.1'
