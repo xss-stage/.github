@@ -15,10 +15,10 @@ xss-stage는 이미 다양한 xss공격을 필터링하는 라이브러리가 �
 **xss-stage를 사용하면 다음과 같은 장점이 있습니다.**
   
 1. 일관되고 쉬운 적용 방식 - 각 상황에 효율적인 다양한 라이브러리를 일관된 적용방식으로 적용할 수 있습니다.
-2. 쉬운 확장과 커스텀 - XssFiltering 인터페이스를 구현하고 스프링 빈으로 등록하면, 이 구현체를 이용해 필터링 을 할 수 있습니다.
+2. 쉬운 확장과 커스텀 - XssFiltering 인터페이스를 구현하고 스프링 빈으로 등록하면, 이 구현체를 이용해 필터링을 할 수 있습니다.
 3. 선택적인 Xss filtering - 꼭 필요한 파라미터와 url만 Xss filtering 대상으로 지정할 수 있습니다.
 4. 낮은 라이브러리 의존성 - Xss core에서 제공하는 인터페이스를 통해 언제든지 구체적인 필터링 라이브러리를 교체할 수 있습니다.
-5. 검증된 filtering 구현체들 - Xss stage 확장인 xss-extension-string, xss-extension-core는 각각 jackson, navercorp-lucy를 사용해 구현되어 있습니다.
+5. 검증된 filtering 구현체들 - Xss stage 확장인 xss-extension-string, xss-extension-json은 각각 navercorp-lucy, jackson을 이용해 구현되어 있습니다.
 6. 요청에서 진행되는 xss filtering - Xss stage는 요청시에 xss filtering이 진행되기 때문에 응답이 더 많은 상황에서 더 효율적일 수 있습니다.
    
 ## Extensions
