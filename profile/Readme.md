@@ -13,8 +13,8 @@ xss-core는 자유롭게 XssFilter를 등록하고 확장하여 사용할 수 �
 
 ## Extensions
 core : [xss-core-1.1](https://github.com/xss-stage/xss-core)    
-string-extension : [xss-extension-string-1.1](https://github.com/xss-stage/xss-extension-string)   
-json-extension : [xss-extension-json-1.1](https://github.com/xss-stage/xss-extension-json)
+string-extension : [xss-extension-string-1.1](https://github.com/xss-stage/xss-extension-string) - naver의 lucy-xss 라이브러리를 사용해 구현되어 있습니다.    
+json-extension : [xss-extension-json-1.1](https://github.com/xss-stage/xss-extension-json) - jackson의 databind를 사용해 구현되어 있습니다.
 
 ## Usage
 xss-stage에서 사용할 수 있는 인터페이스와 확장법은 모두 xss-core 라이브러리에 작성되어 있습니다.   
